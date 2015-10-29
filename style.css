@@ -72,3 +72,7 @@ p{
     stroke: rgb(50,50,50);
     fill: rgba(200,200,200,.3)
 }
+
+.spacing {
+	padding-right: 100px;
+}
