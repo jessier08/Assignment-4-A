@@ -11,9 +11,7 @@ var canvas = d3.select('.plot')
     .attr('transform','translate('+margin.l+','+margin.t+')');
 
 //Scale for the size of the circles
-var scaleR = d3.scale.sqrt().domain([5,100]).range([5,120]);
-var scaleX = d3.scale.log().domain([1,3]).range([0,width/2]);
-
+var scaleR = d3.scale.sqrt().domain([5,80]).range([5,80]);
 
 d3.csv('data/olympic_medal_count.csv', parse, dataLoaded);
 
@@ -75,7 +73,7 @@ function draw(rows, year){
 
     var rowEnter = row.enter().append('g')
         .attr('class','country')
-        .attr('transform', function(d,index){return 'translate('+(width/2)/5*index+','+1000+')';}) 
+        .attr('transform', function(d,index){return 'translate('+(width/4)*index+','+200+')';}) 
         .on('click',function(d){
             d3.selectAll('circle').style('stroke','none');
             d3.select(this).select('circle').style('stroke','red');
@@ -86,6 +84,7 @@ function draw(rows, year){
         .style('fill','rgba(32,178,170,0.1)')
         .transition()
         .attr('class','spacing')
+        .style('stroke','rgb(32,178,170)')
 
     rowEnter.append('text')
         .attr('class','label')
@@ -104,12 +103,12 @@ function draw(rows, year){
 
     row
         .transition()
-        .attr('transform', function(d,index){return 'translate('+(width/2)/5*index+','+200+')';}) 
+        .attr('transform', function(d,index){return 'translate('+(width/4)*index+','+200+')';}) 
         .select('circle')
         .attr('r', function(d){return scaleR(d[year]);})
         d3.selectAll('.medals')
         .text(function(d){return d[year];})
-        .attr('transform',function(d,index){return width/5*index;});
+        .attr('transform',function(d,index){return (width/4)*index;});
 }
 
 function parse(row){
